@@ -113,6 +113,30 @@ Namespace My
                 Me("LastWidth") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LastPicPath() As String
+            Get
+                Return CType(Me("LastPicPath"),String)
+            End Get
+            Set
+                Me("LastPicPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LastPicName() As String
+            Get
+                Return CType(Me("LastPicName"),String)
+            End Get
+            Set
+                Me("LastPicName") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

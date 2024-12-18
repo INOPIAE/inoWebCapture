@@ -23,17 +23,20 @@ Partial Class FrmWeb
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         SplitContainer1 = New SplitContainer()
+        TxtH = New TextBox()
+        TxtW = New TextBox()
+        TxtY = New TextBox()
+        TxtX = New TextBox()
         LblInfo = New Label()
         CmdCrop = New Button()
         CmdPicture = New Button()
         CmdGetUrl = New Button()
+        CmdAuto = New Button()
         CmdBrowse = New Button()
         TxtUrl = New TextBox()
         WView = New Microsoft.Web.WebView2.WinForms.WebView2()
-        TxtX = New TextBox()
-        TxtY = New TextBox()
-        TxtW = New TextBox()
-        TxtH = New TextBox()
+        TxtBildPfad = New TextBox()
+        TxtBildName = New TextBox()
         CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
         SplitContainer1.Panel1.SuspendLayout()
         SplitContainer1.Panel2.SuspendLayout()
@@ -50,6 +53,8 @@ Partial Class FrmWeb
         ' 
         ' SplitContainer1.Panel1
         ' 
+        SplitContainer1.Panel1.Controls.Add(TxtBildName)
+        SplitContainer1.Panel1.Controls.Add(TxtBildPfad)
         SplitContainer1.Panel1.Controls.Add(TxtH)
         SplitContainer1.Panel1.Controls.Add(TxtW)
         SplitContainer1.Panel1.Controls.Add(TxtY)
@@ -58,6 +63,7 @@ Partial Class FrmWeb
         SplitContainer1.Panel1.Controls.Add(CmdCrop)
         SplitContainer1.Panel1.Controls.Add(CmdPicture)
         SplitContainer1.Panel1.Controls.Add(CmdGetUrl)
+        SplitContainer1.Panel1.Controls.Add(CmdAuto)
         SplitContainer1.Panel1.Controls.Add(CmdBrowse)
         SplitContainer1.Panel1.Controls.Add(TxtUrl)
         ' 
@@ -67,6 +73,34 @@ Partial Class FrmWeb
         SplitContainer1.Size = New Size(1100, 508)
         SplitContainer1.SplitterDistance = 71
         SplitContainer1.TabIndex = 0
+        ' 
+        ' TxtH
+        ' 
+        TxtH.Location = New Point(392, 41)
+        TxtH.Name = "TxtH"
+        TxtH.Size = New Size(100, 23)
+        TxtH.TabIndex = 3
+        ' 
+        ' TxtW
+        ' 
+        TxtW.Location = New Point(286, 41)
+        TxtW.Name = "TxtW"
+        TxtW.Size = New Size(100, 23)
+        TxtW.TabIndex = 3
+        ' 
+        ' TxtY
+        ' 
+        TxtY.Location = New Point(180, 41)
+        TxtY.Name = "TxtY"
+        TxtY.Size = New Size(100, 23)
+        TxtY.TabIndex = 3
+        ' 
+        ' TxtX
+        ' 
+        TxtX.Location = New Point(64, 41)
+        TxtX.Name = "TxtX"
+        TxtX.Size = New Size(100, 23)
+        TxtX.TabIndex = 3
         ' 
         ' LblInfo
         ' 
@@ -104,6 +138,15 @@ Partial Class FrmWeb
         CmdGetUrl.Text = "Get URL"
         CmdGetUrl.UseVisualStyleBackColor = True
         ' 
+        ' CmdAuto
+        ' 
+        CmdAuto.Location = New Point(860, 38)
+        CmdAuto.Name = "CmdAuto"
+        CmdAuto.Size = New Size(115, 26)
+        CmdAuto.TabIndex = 1
+        CmdAuto.Text = "Nächstes Bild"
+        CmdAuto.UseVisualStyleBackColor = True
+        ' 
         ' CmdBrowse
         ' 
         CmdBrowse.Location = New Point(739, 10)
@@ -133,33 +176,19 @@ Partial Class FrmWeb
         WView.TabIndex = 0
         WView.ZoomFactor = 1R
         ' 
-        ' TxtX
+        ' TxtBildPfad
         ' 
-        TxtX.Location = New Point(64, 41)
-        TxtX.Name = "TxtX"
-        TxtX.Size = New Size(100, 23)
-        TxtX.TabIndex = 3
+        TxtBildPfad.Location = New Point(514, 41)
+        TxtBildPfad.Name = "TxtBildPfad"
+        TxtBildPfad.Size = New Size(150, 23)
+        TxtBildPfad.TabIndex = 4
         ' 
-        ' TxtY
+        ' TxtBildName
         ' 
-        TxtY.Location = New Point(180, 41)
-        TxtY.Name = "TxtY"
-        TxtY.Size = New Size(100, 23)
-        TxtY.TabIndex = 3
-        ' 
-        ' TxtW
-        ' 
-        TxtW.Location = New Point(286, 41)
-        TxtW.Name = "TxtW"
-        TxtW.Size = New Size(100, 23)
-        TxtW.TabIndex = 3
-        ' 
-        ' TxtH
-        ' 
-        TxtH.Location = New Point(392, 41)
-        TxtH.Name = "TxtH"
-        TxtH.Size = New Size(100, 23)
-        TxtH.TabIndex = 3
+        TxtBildName.Location = New Point(670, 42)
+        TxtBildName.Name = "TxtBildName"
+        TxtBildName.Size = New Size(150, 23)
+        TxtBildName.TabIndex = 4
         ' 
         ' FrmWeb
         ' 
@@ -190,4 +219,7 @@ Partial Class FrmWeb
     Friend WithEvents TxtW As TextBox
     Friend WithEvents TxtY As TextBox
     Friend WithEvents TxtX As TextBox
+    Friend WithEvents CmdAuto As Button
+    Friend WithEvents TxtBildName As TextBox
+    Friend WithEvents TxtBildPfad As TextBox
 End Class
