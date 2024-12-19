@@ -22,128 +22,247 @@ Partial Class FrmWeb
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        SplitContainer1 = New SplitContainer()
-        TxtH = New TextBox()
-        TxtW = New TextBox()
-        TxtY = New TextBox()
-        TxtX = New TextBox()
+        components = New ComponentModel.Container()
+        SpBrowser = New SplitContainer()
+        LblDuration = New Label()
+        ChkAuto = New CheckBox()
+        NudDuration = New NumericUpDown()
+        CmdInfo = New Button()
+        CmdClose = New Button()
+        CmdPicPath = New Button()
+        LblPicName = New Label()
+        LblPicPath = New Label()
+        LblUrl = New Label()
+        LblFile = New Label()
+        TxtBildName = New TextBox()
+        TxtBildPfad = New TextBox()
         LblInfo = New Label()
         CmdCrop = New Button()
+        CmdAddPic = New Button()
+        CmdPicDatei = New Button()
         CmdPicture = New Button()
         CmdGetUrl = New Button()
         CmdAuto = New Button()
         CmdBrowse = New Button()
         TxtUrl = New TextBox()
-        WView = New Microsoft.Web.WebView2.WinForms.WebView2()
-        TxtBildPfad = New TextBox()
-        TxtBildName = New TextBox()
-        CType(SplitContainer1, ComponentModel.ISupportInitialize).BeginInit()
-        SplitContainer1.Panel1.SuspendLayout()
-        SplitContainer1.Panel2.SuspendLayout()
-        SplitContainer1.SuspendLayout()
-        CType(WView, ComponentModel.ISupportInitialize).BeginInit()
+        GpScreeshot = New GroupBox()
+        LblH = New Label()
+        LblW = New Label()
+        LblY = New Label()
+        LblX = New Label()
+        TxtH = New TextBox()
+        TxtW = New TextBox()
+        TxtY = New TextBox()
+        TxtX = New TextBox()
+        TtpTool = New ToolTip(components)
+        CType(SpBrowser, ComponentModel.ISupportInitialize).BeginInit()
+        SpBrowser.Panel1.SuspendLayout()
+        SpBrowser.SuspendLayout()
+        CType(NudDuration, ComponentModel.ISupportInitialize).BeginInit()
+        GpScreeshot.SuspendLayout()
         SuspendLayout()
         ' 
-        ' SplitContainer1
+        ' SpBrowser
         ' 
-        SplitContainer1.Dock = DockStyle.Fill
-        SplitContainer1.Location = New Point(0, 0)
-        SplitContainer1.Name = "SplitContainer1"
-        SplitContainer1.Orientation = Orientation.Horizontal
+        SpBrowser.Dock = DockStyle.Fill
+        SpBrowser.FixedPanel = FixedPanel.Panel1
+        SpBrowser.Location = New Point(0, 0)
+        SpBrowser.Name = "SpBrowser"
+        SpBrowser.Orientation = Orientation.Horizontal
         ' 
-        ' SplitContainer1.Panel1
+        ' SpBrowser.Panel1
         ' 
-        SplitContainer1.Panel1.Controls.Add(TxtBildName)
-        SplitContainer1.Panel1.Controls.Add(TxtBildPfad)
-        SplitContainer1.Panel1.Controls.Add(TxtH)
-        SplitContainer1.Panel1.Controls.Add(TxtW)
-        SplitContainer1.Panel1.Controls.Add(TxtY)
-        SplitContainer1.Panel1.Controls.Add(TxtX)
-        SplitContainer1.Panel1.Controls.Add(LblInfo)
-        SplitContainer1.Panel1.Controls.Add(CmdCrop)
-        SplitContainer1.Panel1.Controls.Add(CmdPicture)
-        SplitContainer1.Panel1.Controls.Add(CmdGetUrl)
-        SplitContainer1.Panel1.Controls.Add(CmdAuto)
-        SplitContainer1.Panel1.Controls.Add(CmdBrowse)
-        SplitContainer1.Panel1.Controls.Add(TxtUrl)
+        SpBrowser.Panel1.Controls.Add(LblDuration)
+        SpBrowser.Panel1.Controls.Add(ChkAuto)
+        SpBrowser.Panel1.Controls.Add(NudDuration)
+        SpBrowser.Panel1.Controls.Add(CmdInfo)
+        SpBrowser.Panel1.Controls.Add(CmdClose)
+        SpBrowser.Panel1.Controls.Add(CmdPicPath)
+        SpBrowser.Panel1.Controls.Add(LblPicName)
+        SpBrowser.Panel1.Controls.Add(LblPicPath)
+        SpBrowser.Panel1.Controls.Add(LblUrl)
+        SpBrowser.Panel1.Controls.Add(LblFile)
+        SpBrowser.Panel1.Controls.Add(TxtBildName)
+        SpBrowser.Panel1.Controls.Add(TxtBildPfad)
+        SpBrowser.Panel1.Controls.Add(LblInfo)
+        SpBrowser.Panel1.Controls.Add(CmdCrop)
+        SpBrowser.Panel1.Controls.Add(CmdAddPic)
+        SpBrowser.Panel1.Controls.Add(CmdPicDatei)
+        SpBrowser.Panel1.Controls.Add(CmdPicture)
+        SpBrowser.Panel1.Controls.Add(CmdGetUrl)
+        SpBrowser.Panel1.Controls.Add(CmdAuto)
+        SpBrowser.Panel1.Controls.Add(CmdBrowse)
+        SpBrowser.Panel1.Controls.Add(TxtUrl)
+        SpBrowser.Panel1.Controls.Add(GpScreeshot)
+        SpBrowser.Size = New Size(1553, 508)
+        SpBrowser.SplitterDistance = 126
+        SpBrowser.TabIndex = 0
         ' 
-        ' SplitContainer1.Panel2
+        ' LblDuration
         ' 
-        SplitContainer1.Panel2.Controls.Add(WView)
-        SplitContainer1.Size = New Size(1100, 508)
-        SplitContainer1.SplitterDistance = 71
-        SplitContainer1.TabIndex = 0
+        LblDuration.AutoSize = True
+        LblDuration.Location = New Point(928, 46)
+        LblDuration.Name = "LblDuration"
+        LblDuration.Size = New Size(59, 15)
+        LblDuration.TabIndex = 22
+        LblDuration.Text = "Sekunden"
         ' 
-        ' TxtH
+        ' ChkAuto
         ' 
-        TxtH.Location = New Point(392, 41)
-        TxtH.Name = "TxtH"
-        TxtH.Size = New Size(100, 23)
-        TxtH.TabIndex = 3
+        ChkAuto.AutoSize = True
+        ChkAuto.Location = New Point(830, 46)
+        ChkAuto.Name = "ChkAuto"
+        ChkAuto.Size = New Size(92, 19)
+        ChkAuto.TabIndex = 21
+        ChkAuto.Text = "automatisch"
+        ChkAuto.UseVisualStyleBackColor = True
         ' 
-        ' TxtW
+        ' NudDuration
         ' 
-        TxtW.Location = New Point(286, 41)
-        TxtW.Name = "TxtW"
-        TxtW.Size = New Size(100, 23)
-        TxtW.TabIndex = 3
+        NudDuration.Location = New Point(996, 42)
+        NudDuration.Name = "NudDuration"
+        NudDuration.Size = New Size(54, 23)
+        NudDuration.TabIndex = 23
+        NudDuration.TextAlign = HorizontalAlignment.Right
         ' 
-        ' TxtY
+        ' CmdInfo
         ' 
-        TxtY.Location = New Point(180, 41)
-        TxtY.Name = "TxtY"
-        TxtY.Size = New Size(100, 23)
-        TxtY.TabIndex = 3
+        CmdInfo.Location = New Point(1461, 46)
+        CmdInfo.Name = "CmdInfo"
+        CmdInfo.Size = New Size(66, 27)
+        CmdInfo.TabIndex = 26
+        CmdInfo.Text = "Info"
+        CmdInfo.UseVisualStyleBackColor = True
         ' 
-        ' TxtX
+        ' CmdClose
         ' 
-        TxtX.Location = New Point(64, 41)
-        TxtX.Name = "TxtX"
-        TxtX.Size = New Size(100, 23)
-        TxtX.TabIndex = 3
+        CmdClose.Location = New Point(1461, 10)
+        CmdClose.Name = "CmdClose"
+        CmdClose.Size = New Size(66, 27)
+        CmdClose.TabIndex = 27
+        CmdClose.Text = "Schließen"
+        CmdClose.UseVisualStyleBackColor = True
+        ' 
+        ' CmdPicPath
+        ' 
+        CmdPicPath.Location = New Point(462, 42)
+        CmdPicPath.Name = "CmdPicPath"
+        CmdPicPath.Size = New Size(30, 23)
+        CmdPicPath.TabIndex = 17
+        CmdPicPath.Text = "..."
+        CmdPicPath.UseVisualStyleBackColor = True
+        ' 
+        ' LblPicName
+        ' 
+        LblPicName.AutoSize = True
+        LblPicName.Location = New Point(498, 46)
+        LblPicName.Name = "LblPicName"
+        LblPicName.Size = New Size(44, 15)
+        LblPicName.TabIndex = 18
+        LblPicName.Text = "-Name"
+        ' 
+        ' LblPicPath
+        ' 
+        LblPicPath.AutoSize = True
+        LblPicPath.Location = New Point(251, 46)
+        LblPicPath.Name = "LblPicPath"
+        LblPicPath.Size = New Size(56, 15)
+        LblPicPath.TabIndex = 15
+        LblPicPath.Text = "Bild-Pfad"
+        ' 
+        ' LblUrl
+        ' 
+        LblUrl.AutoSize = True
+        LblUrl.Location = New Point(3, 16)
+        LblUrl.Name = "LblUrl"
+        LblUrl.Size = New Size(31, 15)
+        LblUrl.TabIndex = 0
+        LblUrl.Text = "URL:"
+        ' 
+        ' LblFile
+        ' 
+        LblFile.AutoSize = True
+        LblFile.Location = New Point(1065, 45)
+        LblFile.Name = "LblFile"
+        LblFile.Size = New Size(41, 15)
+        LblFile.TabIndex = 24
+        LblFile.Text = "Label1"
+        ' 
+        ' TxtBildName
+        ' 
+        TxtBildName.Location = New Point(548, 42)
+        TxtBildName.Name = "TxtBildName"
+        TxtBildName.Size = New Size(150, 23)
+        TxtBildName.TabIndex = 19
+        ' 
+        ' TxtBildPfad
+        ' 
+        TxtBildPfad.Location = New Point(313, 42)
+        TxtBildPfad.Name = "TxtBildPfad"
+        TxtBildPfad.Size = New Size(150, 23)
+        TxtBildPfad.TabIndex = 16
         ' 
         ' LblInfo
         ' 
         LblInfo.AutoSize = True
-        LblInfo.Location = New Point(1013, 12)
+        LblInfo.Location = New Point(251, 74)
         LblInfo.Name = "LblInfo"
         LblInfo.Size = New Size(41, 15)
-        LblInfo.TabIndex = 2
+        LblInfo.TabIndex = 25
         LblInfo.Text = "Label1"
         ' 
         ' CmdCrop
         ' 
-        CmdCrop.Location = New Point(871, 9)
+        CmdCrop.Location = New Point(847, 11)
         CmdCrop.Name = "CmdCrop"
-        CmdCrop.Size = New Size(60, 26)
-        CmdCrop.TabIndex = 1
-        CmdCrop.Text = "Button1"
+        CmdCrop.Size = New Size(102, 26)
+        CmdCrop.TabIndex = 3
+        CmdCrop.Text = "Screenshot"
         CmdCrop.UseVisualStyleBackColor = True
+        ' 
+        ' CmdAddPic
+        ' 
+        CmdAddPic.Location = New Point(1302, 9)
+        CmdAddPic.Name = "CmdAddPic"
+        CmdAddPic.Size = New Size(111, 26)
+        CmdAddPic.TabIndex = 5
+        CmdAddPic.Text = "Add URL"
+        CmdAddPic.UseVisualStyleBackColor = True
+        ' 
+        ' CmdPicDatei
+        ' 
+        CmdPicDatei.Location = New Point(1065, 10)
+        CmdPicDatei.Name = "CmdPicDatei"
+        CmdPicDatei.Size = New Size(155, 26)
+        CmdPicDatei.TabIndex = 6
+        CmdPicDatei.Text = "Konfigurationsdatei"
+        CmdPicDatei.UseVisualStyleBackColor = True
         ' 
         ' CmdPicture
         ' 
-        CmdPicture.Location = New Point(805, 9)
+        CmdPicture.Location = New Point(1384, 73)
         CmdPicture.Name = "CmdPicture"
-        CmdPicture.Size = New Size(60, 26)
-        CmdPicture.TabIndex = 1
+        CmdPicture.Size = New Size(111, 26)
+        CmdPicture.TabIndex = 28
         CmdPicture.Text = "Button1"
         CmdPicture.UseVisualStyleBackColor = True
+        CmdPicture.Visible = False
         ' 
         ' CmdGetUrl
         ' 
-        CmdGetUrl.Location = New Point(937, 10)
+        CmdGetUrl.Location = New Point(1236, 9)
         CmdGetUrl.Name = "CmdGetUrl"
         CmdGetUrl.Size = New Size(60, 26)
-        CmdGetUrl.TabIndex = 1
+        CmdGetUrl.TabIndex = 4
         CmdGetUrl.Text = "Get URL"
         CmdGetUrl.UseVisualStyleBackColor = True
         ' 
         ' CmdAuto
         ' 
-        CmdAuto.Location = New Point(860, 38)
+        CmdAuto.Location = New Point(709, 40)
         CmdAuto.Name = "CmdAuto"
         CmdAuto.Size = New Size(115, 26)
-        CmdAuto.TabIndex = 1
+        CmdAuto.TabIndex = 20
         CmdAuto.Text = "Nächstes Bild"
         CmdAuto.UseVisualStyleBackColor = True
         ' 
@@ -151,9 +270,9 @@ Partial Class FrmWeb
         ' 
         CmdBrowse.Location = New Point(739, 10)
         CmdBrowse.Name = "CmdBrowse"
-        CmdBrowse.Size = New Size(60, 26)
-        CmdBrowse.TabIndex = 1
-        CmdBrowse.Text = "Button1"
+        CmdBrowse.Size = New Size(81, 26)
+        CmdBrowse.TabIndex = 2
+        CmdBrowse.Text = "Load URL"
         CmdBrowse.UseVisualStyleBackColor = True
         ' 
         ' TxtUrl
@@ -161,65 +280,141 @@ Partial Class FrmWeb
         TxtUrl.Location = New Point(36, 12)
         TxtUrl.Name = "TxtUrl"
         TxtUrl.Size = New Size(697, 23)
-        TxtUrl.TabIndex = 0
+        TxtUrl.TabIndex = 1
         ' 
-        ' WView
+        ' GpScreeshot
         ' 
-        WView.AllowExternalDrop = True
-        WView.CreationProperties = Nothing
-        WView.DefaultBackgroundColor = Color.White
-        WView.Dock = DockStyle.Fill
-        WView.Location = New Point(0, 0)
-        WView.Name = "WView"
-        WView.Size = New Size(1100, 433)
-        WView.Source = New Uri("https://app.powerbi.com/", UriKind.Absolute)
-        WView.TabIndex = 0
-        WView.ZoomFactor = 1R
+        GpScreeshot.Controls.Add(LblH)
+        GpScreeshot.Controls.Add(LblW)
+        GpScreeshot.Controls.Add(LblY)
+        GpScreeshot.Controls.Add(LblX)
+        GpScreeshot.Controls.Add(TxtH)
+        GpScreeshot.Controls.Add(TxtW)
+        GpScreeshot.Controls.Add(TxtY)
+        GpScreeshot.Controls.Add(TxtX)
+        GpScreeshot.Location = New Point(12, 42)
+        GpScreeshot.Name = "GpScreeshot"
+        GpScreeshot.Size = New Size(233, 76)
+        GpScreeshot.TabIndex = 29
+        GpScreeshot.TabStop = False
+        GpScreeshot.Text = "Definition des Screenshotbereiches"
         ' 
-        ' TxtBildPfad
+        ' LblH
         ' 
-        TxtBildPfad.Location = New Point(514, 41)
-        TxtBildPfad.Name = "TxtBildPfad"
-        TxtBildPfad.Size = New Size(150, 23)
-        TxtBildPfad.TabIndex = 4
+        LblH.AutoSize = True
+        LblH.Location = New Point(132, 51)
+        LblH.Name = "LblH"
+        LblH.Size = New Size(36, 15)
+        LblH.TabIndex = 21
+        LblH.Text = "Höhe"
         ' 
-        ' TxtBildName
+        ' LblW
         ' 
-        TxtBildName.Location = New Point(670, 42)
-        TxtBildName.Name = "TxtBildName"
-        TxtBildName.Size = New Size(150, 23)
-        TxtBildName.TabIndex = 4
+        LblW.AutoSize = True
+        LblW.Location = New Point(48, 50)
+        LblW.Name = "LblW"
+        LblW.Size = New Size(37, 15)
+        LblW.TabIndex = 19
+        LblW.Text = "Breite"
+        ' 
+        ' LblY
+        ' 
+        LblY.AutoSize = True
+        LblY.Location = New Point(114, 20)
+        LblY.Name = "LblY"
+        LblY.Size = New Size(63, 15)
+        LblY.TabIndex = 17
+        LblY.Text = "Start Pos Y"
+        ' 
+        ' LblX
+        ' 
+        LblX.AutoSize = True
+        LblX.Location = New Point(9, 20)
+        LblX.Name = "LblX"
+        LblX.Size = New Size(63, 15)
+        LblX.TabIndex = 15
+        LblX.Text = "Start Pos X"
+        ' 
+        ' TxtH
+        ' 
+        TxtH.Location = New Point(174, 47)
+        TxtH.Name = "TxtH"
+        TxtH.Size = New Size(35, 23)
+        TxtH.TabIndex = 22
+        TxtH.TextAlign = HorizontalAlignment.Right
+        ' 
+        ' TxtW
+        ' 
+        TxtW.Location = New Point(91, 47)
+        TxtW.Name = "TxtW"
+        TxtW.Size = New Size(35, 23)
+        TxtW.TabIndex = 20
+        TxtW.TextAlign = HorizontalAlignment.Right
+        ' 
+        ' TxtY
+        ' 
+        TxtY.Location = New Point(174, 17)
+        TxtY.Name = "TxtY"
+        TxtY.Size = New Size(35, 23)
+        TxtY.TabIndex = 18
+        TxtY.TextAlign = HorizontalAlignment.Right
+        ' 
+        ' TxtX
+        ' 
+        TxtX.Location = New Point(75, 17)
+        TxtX.Name = "TxtX"
+        TxtX.Size = New Size(35, 23)
+        TxtX.TabIndex = 16
+        TxtX.TextAlign = HorizontalAlignment.Right
         ' 
         ' FrmWeb
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1100, 508)
-        Controls.Add(SplitContainer1)
+        ClientSize = New Size(1553, 508)
+        Controls.Add(SpBrowser)
         Name = "FrmWeb"
-        Text = "FrmWeb"
-        SplitContainer1.Panel1.ResumeLayout(False)
-        SplitContainer1.Panel1.PerformLayout()
-        SplitContainer1.Panel2.ResumeLayout(False)
-        CType(SplitContainer1, ComponentModel.ISupportInitialize).EndInit()
-        SplitContainer1.ResumeLayout(False)
-        CType(WView, ComponentModel.ISupportInitialize).EndInit()
+        Text = "inoWebCapture"
+        SpBrowser.Panel1.ResumeLayout(False)
+        SpBrowser.Panel1.PerformLayout()
+        CType(SpBrowser, ComponentModel.ISupportInitialize).EndInit()
+        SpBrowser.ResumeLayout(False)
+        CType(NudDuration, ComponentModel.ISupportInitialize).EndInit()
+        GpScreeshot.ResumeLayout(False)
+        GpScreeshot.PerformLayout()
         ResumeLayout(False)
     End Sub
 
-    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents SpBrowser As SplitContainer
     Friend WithEvents CmdBrowse As Button
     Friend WithEvents TxtUrl As TextBox
-    Friend WithEvents WView As Microsoft.Web.WebView2.WinForms.WebView2
     Friend WithEvents CmdPicture As Button
     Friend WithEvents CmdCrop As Button
     Friend WithEvents CmdGetUrl As Button
     Friend WithEvents LblInfo As Label
+    Friend WithEvents CmdAuto As Button
+    Friend WithEvents TxtBildName As TextBox
+    Friend WithEvents TxtBildPfad As TextBox
+    Friend WithEvents CmdAddPic As Button
+    Friend WithEvents CmdPicDatei As Button
+    Friend WithEvents LblFile As Label
+    Friend WithEvents LblUrl As Label
+    Friend WithEvents CmdPicPath As Button
+    Friend WithEvents LblPicName As Label
+    Friend WithEvents LblPicPath As Label
+    Friend WithEvents CmdInfo As Button
+    Friend WithEvents CmdClose As Button
+    Friend WithEvents ChkAuto As CheckBox
+    Friend WithEvents NudDuration As NumericUpDown
+    Friend WithEvents LblDuration As Label
+    Friend WithEvents GpScreeshot As GroupBox
+    Friend WithEvents LblH As Label
+    Friend WithEvents LblW As Label
+    Friend WithEvents LblY As Label
+    Friend WithEvents LblX As Label
     Friend WithEvents TxtH As TextBox
     Friend WithEvents TxtW As TextBox
     Friend WithEvents TxtY As TextBox
     Friend WithEvents TxtX As TextBox
-    Friend WithEvents CmdAuto As Button
-    Friend WithEvents TxtBildName As TextBox
-    Friend WithEvents TxtBildPfad As TextBox
+    Friend WithEvents TtpTool As ToolTip
 End Class

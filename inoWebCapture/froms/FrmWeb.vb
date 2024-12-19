@@ -1,7 +1,8 @@
 ﻿Imports System.ComponentModel
-Imports System.Drawing.Drawing2D
 Imports System.IO
-Imports DocumentFormat.OpenXml.Office.Word
+
+Imports System.Reflection.Emit
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Microsoft.Web.WebView2.Core
 
 Public Class FrmWeb
@@ -11,41 +12,43 @@ Public Class FrmWeb
     Private pPic As String
     Private pStart As Boolean
     Private pPicName As String
+    Public pFile As String
+    Private blnAddUrl As Boolean
+    Private pPicTotal As Integer
+
+
+
+    Private WithEvents WView As Microsoft.Web.WebView2.WinForms.WebView2
     Private Sub CmdBrowse_Click(sender As Object, e As EventArgs) Handles CmdBrowse.Click
-        WView.CoreWebView2.Navigate(TxtUrl.Text)
+        Try
+            WView.CoreWebView2.Navigate(TxtUrl.Text)
+        Catch ex As Exception
+            MessageBox.Show("Error WebView: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub CmdPicture_Click(sender As Object, e As EventArgs) Handles CmdPicture.Click
-        Dim currentScreen = Screen.FromHandle(Me.Handle).WorkingArea
+        'Dim currentScreen = Screen.FromHandle(Me.Handle).WorkingArea
 
-        'create a bitmap of the working area
-        Using bmp As New Bitmap(currentScreen.Width, currentScreen.Height)
+        ''create a bitmap of the working area
+        'Using bmp As New Bitmap(currentScreen.Width, currentScreen.Height)
 
-            'copy the screen to the image
-            Using g = Graphics.FromImage(bmp)
-                g.CopyFromScreen(New Point(0, 0), New Point(0, 0), currentScreen.Size)
-            End Using
+        '    'copy the screen to the image
+        '    Using g = Graphics.FromImage(bmp)
+        '        g.CopyFromScreen(New Point(0, 0), New Point(0, 0), currentScreen.Size)
+        '    End Using
 
-            'save the image
-            Using sfd As New SaveFileDialog() With {.Filter = "PNG Image|*.png",
-                                                    .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop}
+        '    'save the image
+        '    Using sfd As New SaveFileDialog() With {.Filter = "PNG Image|*.png",
+        '                                            .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop}
 
-                If sfd.ShowDialog() = DialogResult.OK Then
-                    bmp.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png)
-                End If
-            End Using
-        End Using
+        '        If sfd.ShowDialog() = DialogResult.OK Then
+        '            bmp.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png)
+        '        End If
+        '    End Using
+        'End Using
     End Sub
 
-    'Private Sub SurroundingSub()
-    '    Dim image As Image = New Bitmap("Apple.gif")
-    '    e.Graphics.DrawImage(image, 0, 0)
-    '    Dim width As Integer = image.Width
-    '    Dim height As Integer = image.Height
-    '    Dim destinationRect As RectangleF = New RectangleF(150, 20, 1.3F * width, 1.3F * height)
-    '    Dim sourceRect As RectangleF = New RectangleF(0, 0, 0.75F * width, 0.75F * height)
-    '    e.Graphics.DrawImage(image, destinationRect, sourceRect, GraphicsUnit.Pixel)
-    'End Sub
 
     Dim cropX As Integer
     Dim cropY As Integer
@@ -54,13 +57,12 @@ Public Class FrmWeb
 
     Dim cropBitmap As Bitmap
     Private Sub CmdCrop_Click(sender As Object, e As EventArgs) Handles CmdCrop.Click
+        pPic = ""
         ScreenCopy()
     End Sub
 
     Private Sub ScreenCopy()
         Dim currentScreen = Screen.FromHandle(Me.Handle).WorkingArea
-
-
 
         'create a bitmap of the working area
         Using bmp As New Bitmap(currentScreen.Width, currentScreen.Height)
@@ -101,39 +103,74 @@ Public Class FrmWeb
         End Using
     End Sub
 
-    Private Sub WView_NavigationCompleted(sender As Object, e As CoreWebView2NavigationCompletedEventArgs) Handles WView.NavigationCompleted
-
-    End Sub
-
     Private Sub CmdGetUrl_Click(sender As Object, e As EventArgs) Handles CmdGetUrl.Click
         TxtUrl.Text = WView.Source.ToString()
+        blnAddUrl = True
     End Sub
 
+    Private Async Sub FrmWeb_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Try
+
+            TxtX.Text = My.Settings.LastX
+            TxtY.Text = My.Settings.LastY
+            TxtW.Text = My.Settings.LastWidth
+            TxtH.Text = My.Settings.LastHeight
+            TxtBildName.Text = My.Settings.LastPicName
+            TxtBildPfad.Text = My.Settings.LastPicPath
+            ChkAuto.Checked = My.Settings.PicAuto
+            NudDuration.Value = My.Settings.PicDuration
+            pFile = My.Settings.LastPicFile
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+
+        LblInfo.Text = ""
+        LblFile.Text = String.Format("Konfigurationsdatei: {0}", pFile)
 
 
-    Private Sub FrmWeb_Load(sender As Object, e As EventArgs) Handles Me.Load
+        WView = New Microsoft.Web.WebView2.WinForms.WebView2()
+        WView.Dock = DockStyle.Fill
+        Me.SpBrowser.Panel2.Controls.Add(WView)
 
-        TxtX.Text = My.Settings.LastX
-        TxtY.Text = My.Settings.LastY
-        TxtW.Text = My.Settings.LastWidth
-        TxtH.Text = My.Settings.LastHeight
-        TxtBildName.Text = My.Settings.LastPicName
-        TxtBildPfad.Text = My.Settings.LastPicPath
+        ' Ensure CoreWebView2 is initialized before navigating
+        Await WView.EnsureCoreWebView2Async(Nothing)
 
-        If My.Settings.LastUrl = "" Then
-            WView.CoreWebView2.Navigate("https://app.powerbi.com")
-        Else
-            TxtUrl.Text = My.Settings.LastUrl
-        End If
+        '' Now that CoreWebView2 is initialized, navigate to a URL
+        'If WView.CoreWebView2 IsNot Nothing Then
+        '    WView.CoreWebView2.Navigate("https://www.example.com")
+        'End If
 
-
-        ReDim url(3)
-        url(0) = "https://app.powerbi.com/groups/20d350b2-0b6c-48b2-8c0c-c81cb76b0633/reports/be926d05-8098-473e-bab2-a4ccc6c38774/20eda087e4cc2e75b248?experience=power-bi"
-        url(1) = "https://app.powerbi.com/groups/20d350b2-0b6c-48b2-8c0c-c81cb76b0633/reports/be926d05-8098-473e-bab2-a4ccc6c38774/7d07333c7ec824516f29?experience=power-bi"
-        url(2) = "https://app.powerbi.com/groups/20d350b2-0b6c-48b2-8c0c-c81cb76b0633/reports/be926d05-8098-473e-bab2-a4ccc6c38774/ec45ab4f68a2c42eb061?experience=power-bi"
-        url(3) = "https://app.powerbi.com/groups/20d350b2-0b6c-48b2-8c0c-c81cb76b0633/reports/be926d05-8098-473e-bab2-a4ccc6c38774/d4c10a096e09c06f5a9b?experience=power-bi"
-
+        Try
+            If WView.CoreWebView2 IsNot Nothing Then
+                If My.Settings.LastUrl = "" Then
+                    WView.CoreWebView2.Navigate("https://app.powerbi.com")
+                Else
+                    TxtUrl.Text = My.Settings.LastUrl
+                    WView.CoreWebView2.Navigate(TxtUrl.Text)
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error WebView: " & ex.Message)
+        End Try
         pStart = True
+
+        TtpTool.SetToolTip(TxtX, "Position der linken oberen Ecke des Screenshotbereiches von LINKS")
+        TtpTool.SetToolTip(TxtY, "Position der linken oberen Ecke des Screenshotbereiches von OBEN")
+
+        TtpTool.SetToolTip(CmdGetUrl, "Übernimmt die URL der aktuellen Seite in URL")
+        TtpTool.SetToolTip(CmdBrowse, "Lädt die Seite aus URL")
+        TtpTool.SetToolTip(CmdCrop, "Erstellt einen einzelen Screenshot und speichert in ab")
+        TtpTool.SetToolTip(CmdAuto, "Wenn automatisch ausgewählt wurde, " _
+                           & vbCrLf & "werden die Screenshots automatisch in der vorgegeben Zeit erstellt." _
+                           & vbCrLf & "Ansonsten wird mit jedem Klick das nächste Bild verwendet.")
+
+
+        ' Additional customizations for the ToolTip (optional)
+        'TtpTool.ToolTipTitle = "Helpful Information"
+        'TtpTool.IsBalloon = True ' Make it appear as a balloon-style tooltip
+        TtpTool.AutoPopDelay = 5000 ' Tooltip stays for 5 seconds
+        TtpTool.InitialDelay = 1000 ' Delay before showing the tooltip (1 second)
+        TtpTool.ReshowDelay = 500 ' Delay before showing the tooltip again (after it's hidden)
 
     End Sub
 
@@ -144,6 +181,9 @@ Public Class FrmWeb
         My.Settings.LastHeight = TxtH.Text
         My.Settings.LastPicName = TxtBildName.Text
         My.Settings.LastPicPath = TxtBildPfad.Text
+        My.Settings.LastPicFile = pFile
+        My.Settings.PicAuto = ChkAuto.Checked
+        My.Settings.PicDuration = NudDuration.Value
 
 
         '    My.Settings.LastUrl = TxtUrl.Text
@@ -161,40 +201,115 @@ Public Class FrmWeb
             pPicName = pPicName.Replace("\\", "\")
         End If
 
-        If pStart = True Then
-            pUrl = 0
-            TxtUrl.Text = url(pUrl)
-            CmdBrowse.PerformClick()
-            pStart = False
+        url = File.ReadAllLines(pFile)
+        pPicTotal = url.Length
 
-        Else
-            pPic = pPicName & pUrl + 1 & ".png"
-            LblInfo.Text = "Bild " & pUrl + 1
-
-            ScreenCopy()
-
-            pUrl += 1
-            If pUrl = url.Length Then
-                pStart = True
-                MessageBox.Show("Am Ende der Liste angekommen")
-            Else
+        LblInfo.Text = "Erste Seite wird geladen"
+        If ChkAuto.Checked = False Then
+            If pStart = True Then
+                pUrl = 0
                 TxtUrl.Text = url(pUrl)
                 CmdBrowse.PerformClick()
+
+                pStart = False
+            Else
+                pPic = pPicName & pUrl + 1 & ".png"
+                LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
+
+                ScreenCopy()
+
+                pUrl += 1
+                If pUrl = url.Length Then
+                    pStart = True
+                    MessageBox.Show("Am Ende der Liste angekommen")
+                Else
+                    TxtUrl.Text = url(pUrl)
+                    CmdBrowse.PerformClick()
+                End If
             End If
+        Else
+            pUrl = 0
+            Application.DoEvents()
+            For z As Integer = 0 To url.Length - 1
 
+
+                TxtUrl.Text = url(z)
+                CmdBrowse.PerformClick()
+                pPic = pPicName & pUrl + 1 & ".png"
+                System.Threading.Thread.Sleep(NudDuration.Value * 1000)
+                LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
+                Application.DoEvents()
+                ScreenCopy()
+                pUrl += 1
+            Next
+            LblInfo.Text = "fertig"
         End If
-
-        'For z As Integer = 0 To url.Length - 1
-        'pUrl += 1
-
-        'TxtUrl.Text = url(z)
-        'CmdBrowse.PerformClick()
-        'pPic = "D:\test\sc" & z & ".png"
-        'LblInfo.Text = "Bild " & z
-        'Application.DoEvents()
-        'System.Threading.Thread.Sleep(45000)
-        'CmdCrop.PerformClick()
-        ' Next
-        'LblInfo.Text = "fertig"
     End Sub
+
+    Private Sub CmdPicDatei_Click(sender As Object, e As EventArgs) Handles CmdPicDatei.Click
+        'Dim openFileDialog As New SaveFileDialog()
+
+
+        '' Configure the OpenFileDialog
+        '' openFileDialog.InitialDirectory = "C:\" ' Default starting folder
+        'openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*" ' Filter file types
+        'OpenFileDialog.FilterIndex = 1 ' Default filter
+        'OpenFileDialog.RestoreDirectory = True ' Restore the previous directory if possible
+
+        '' Show the dialog and check if the user selected a file
+        'If OpenFileDialog.ShowDialog() = DialogResult.OK Then
+        '    ' Get the file path of the selected file
+        '    Dim filePath As String = OpenFileDialog.FileName
+        '    pFile = filePath
+        '    ' Display the selected file path in a TextBox or use it as needed
+        '    'MessageBox.Show("You selected: " & filePath)
+        '    LblFile.Text = String.Format("Konfigurationsdatei:{0}", pFile)
+        'End If
+        FrmConfigFile.ShowDialog()
+        LblFile.Text = String.Format("Konfigurationsdatei:{0}", pFile)
+    End Sub
+
+    Private Sub CmdAddPic_Click(sender As Object, e As EventArgs) Handles CmdAddPic.Click
+        If blnAddUrl = False Then
+            MessageBox.Show("Es wurde noch keine URL ausgewählt")
+            Exit Sub
+        End If
+        Try
+            ' Use StreamWriter to append to the file
+            Using writer As New StreamWriter(pFile, True)
+                writer.WriteLine(TxtUrl.Text)
+            End Using
+
+            ' Notify user
+            MessageBox.Show("Line added successfully!")
+        Catch ex As Exception
+            ' Handle any errors (e.g., file not found or permission issues)
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+        blnAddUrl = False
+    End Sub
+
+    Private Sub CmdClose_Click(sender As Object, e As EventArgs) Handles CmdClose.Click
+        Me.Close()
+    End Sub
+
+    Private Sub CmdInfo_Click(sender As Object, e As EventArgs) Handles CmdInfo.Click
+        FrmInfo.ShowDialog()
+    End Sub
+
+    Private Sub CmdPicPath_Click(sender As Object, e As EventArgs) Handles CmdPicPath.Click
+        Dim folderDialog As New FolderBrowserDialog()
+
+        If folderDialog.ShowDialog() = DialogResult.OK Then
+            ' Get the selected folder path
+            Dim selectedFolderPath As String = folderDialog.SelectedPath
+
+            ' Display the selected folder path (you can use this path as needed)
+            'MessageBox.Show("You selected the folder: " & selectedFolderPath)
+            TxtBildPfad.Text = selectedFolderPath
+        Else
+            MessageBox.Show("No folder selected.")
+        End If
+    End Sub
+
 End Class
