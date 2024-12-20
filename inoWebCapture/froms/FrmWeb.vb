@@ -20,6 +20,10 @@ Public Class FrmWeb
 
     Private WithEvents WView As Microsoft.Web.WebView2.WinForms.WebView2
     Private Sub CmdBrowse_Click(sender As Object, e As EventArgs) Handles CmdBrowse.Click
+        BrowseToUrl()
+    End Sub
+
+    Private Sub BrowseToUrl()
         Try
             WView.CoreWebView2.Navigate(TxtUrl.Text)
         Catch ex As Exception
@@ -135,11 +139,6 @@ Public Class FrmWeb
         ' Ensure CoreWebView2 is initialized before navigating
         Await WView.EnsureCoreWebView2Async(Nothing)
 
-        '' Now that CoreWebView2 is initialized, navigate to a URL
-        'If WView.CoreWebView2 IsNot Nothing Then
-        '    WView.CoreWebView2.Navigate("https://www.example.com")
-        'End If
-
         Try
             If WView.CoreWebView2 IsNot Nothing Then
                 If My.Settings.LastUrl = "" Then
@@ -186,7 +185,7 @@ Public Class FrmWeb
         My.Settings.PicDuration = NudDuration.Value
 
 
-        '    My.Settings.LastUrl = TxtUrl.Text
+        My.Settings.LastUrl = TxtUrl.Text
 
         My.Settings.Save()
     End Sub
@@ -209,7 +208,7 @@ Public Class FrmWeb
             If pStart = True Then
                 pUrl = 0
                 TxtUrl.Text = url(pUrl)
-                CmdBrowse.PerformClick()
+                BrowseToUrl()
 
                 pStart = False
             Else
@@ -224,7 +223,7 @@ Public Class FrmWeb
                     MessageBox.Show("Am Ende der Liste angekommen")
                 Else
                     TxtUrl.Text = url(pUrl)
-                    CmdBrowse.PerformClick()
+                    BrowseToUrl()
                 End If
             End If
         Else
@@ -234,7 +233,8 @@ Public Class FrmWeb
 
 
                 TxtUrl.Text = url(z)
-                CmdBrowse.PerformClick()
+                BrowseToUrl()
+                Application.DoEvents()
                 pPic = pPicName & pUrl + 1 & ".png"
                 System.Threading.Thread.Sleep(NudDuration.Value * 1000)
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
@@ -247,24 +247,6 @@ Public Class FrmWeb
     End Sub
 
     Private Sub CmdPicDatei_Click(sender As Object, e As EventArgs) Handles CmdPicDatei.Click
-        'Dim openFileDialog As New SaveFileDialog()
-
-
-        '' Configure the OpenFileDialog
-        '' openFileDialog.InitialDirectory = "C:\" ' Default starting folder
-        'openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*" ' Filter file types
-        'OpenFileDialog.FilterIndex = 1 ' Default filter
-        'OpenFileDialog.RestoreDirectory = True ' Restore the previous directory if possible
-
-        '' Show the dialog and check if the user selected a file
-        'If OpenFileDialog.ShowDialog() = DialogResult.OK Then
-        '    ' Get the file path of the selected file
-        '    Dim filePath As String = OpenFileDialog.FileName
-        '    pFile = filePath
-        '    ' Display the selected file path in a TextBox or use it as needed
-        '    'MessageBox.Show("You selected: " & filePath)
-        '    LblFile.Text = String.Format("Konfigurationsdatei:{0}", pFile)
-        'End If
         FrmConfigFile.ShowDialog()
         LblFile.Text = String.Format("Konfigurationsdatei:{0}", pFile)
     End Sub
