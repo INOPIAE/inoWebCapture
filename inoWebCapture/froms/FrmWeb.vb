@@ -94,8 +94,7 @@ Public Class FrmWeb
 
             'save the image
             If pPic = "" Then
-                Using sfd As New SaveFileDialog() With {.Filter = "PNG Image|*.png",
-                                                    .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop}
+                Using sfd As New SaveFileDialog() With {.Filter = "PNG Image|*.png"}
 
                     If sfd.ShowDialog() = DialogResult.OK Then
                         cropBitmap.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png)
