@@ -172,7 +172,7 @@ Public Class FrmWeb
         TtpTool.ReshowDelay = 500 ' Delay before showing the tooltip again (after it's hidden)
 
         CmdAuto.Text = "Screenshots mit Datei"
-
+        CmdResetManual.Visible = False
     End Sub
 
     Private Sub FrmWeb_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -215,6 +215,7 @@ Public Class FrmWeb
                 CmdAuto.Text = "Nächstes Bild"
                 pStart = False
                 LblTime.Text = ""
+                CmdResetManual.Visible = True
             Else
                 pPic = pPicName & pUrl + 1 & ".png"
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
@@ -223,9 +224,9 @@ Public Class FrmWeb
 
                 pUrl += 1
                 If pUrl = url.Length Then
-                    pStart = True
+
                     MessageBox.Show("Am Ende der Liste angekommen")
-                    CmdAuto.Text = "Screenshots mit Datei"
+                    ResetManuell()
                 Else
                     TxtUrl.Text = url(pUrl)
                     BrowseToUrl()
@@ -265,6 +266,12 @@ Public Class FrmWeb
         End If
 
 
+    End Sub
+
+    Private Sub ResetManuell()
+        pStart = True
+        CmdAuto.Text = "Screenshots mit Datei"
+        CmdResetManual.Visible = False
     End Sub
 
     Private Sub CmdPicDatei_Click(sender As Object, e As EventArgs) Handles CmdPicDatei.Click
@@ -331,5 +338,9 @@ Public Class FrmWeb
         TxtW.Enabled = Activate
         TxtX.Enabled = Activate
         TxtY.Enabled = Activate
+    End Sub
+
+    Private Sub CmdResetManual_Click(sender As Object, e As EventArgs) Handles CmdResetManual.Click
+        ResetManuell()
     End Sub
 End Class

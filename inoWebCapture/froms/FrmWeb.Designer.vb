@@ -24,6 +24,7 @@ Partial Class FrmWeb
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         SpBrowser = New SplitContainer()
+        CmdResetManual = New Button()
         LblDuration = New Label()
         ChkAuto = New CheckBox()
         NudDuration = New NumericUpDown()
@@ -36,6 +37,7 @@ Partial Class FrmWeb
         LblFile = New Label()
         TxtBildName = New TextBox()
         TxtBildPfad = New TextBox()
+        LblTime = New Label()
         LblInfo = New Label()
         CmdCrop = New Button()
         CmdAddPic = New Button()
@@ -55,7 +57,6 @@ Partial Class FrmWeb
         TxtY = New TextBox()
         TxtX = New TextBox()
         TtpTool = New ToolTip(components)
-        LblTime = New Label()
         CType(SpBrowser, ComponentModel.ISupportInitialize).BeginInit()
         SpBrowser.Panel1.SuspendLayout()
         SpBrowser.SuspendLayout()
@@ -73,6 +74,7 @@ Partial Class FrmWeb
         ' 
         ' SpBrowser.Panel1
         ' 
+        SpBrowser.Panel1.Controls.Add(CmdResetManual)
         SpBrowser.Panel1.Controls.Add(LblDuration)
         SpBrowser.Panel1.Controls.Add(ChkAuto)
         SpBrowser.Panel1.Controls.Add(NudDuration)
@@ -100,13 +102,22 @@ Partial Class FrmWeb
         SpBrowser.SplitterDistance = 126
         SpBrowser.TabIndex = 0
         ' 
+        ' CmdResetManual
+        ' 
+        CmdResetManual.Location = New Point(709, 66)
+        CmdResetManual.Name = "CmdResetManual"
+        CmdResetManual.Size = New Size(129, 23)
+        CmdResetManual.TabIndex = 14
+        CmdResetManual.Text = "Manuell Reset"
+        CmdResetManual.UseVisualStyleBackColor = True
+        ' 
         ' LblDuration
         ' 
         LblDuration.AutoSize = True
         LblDuration.Location = New Point(942, 45)
         LblDuration.Name = "LblDuration"
         LblDuration.Size = New Size(59, 15)
-        LblDuration.TabIndex = 22
+        LblDuration.TabIndex = 16
         LblDuration.Text = "Sekunden"
         ' 
         ' ChkAuto
@@ -115,7 +126,7 @@ Partial Class FrmWeb
         ChkAuto.Location = New Point(844, 45)
         ChkAuto.Name = "ChkAuto"
         ChkAuto.Size = New Size(92, 19)
-        ChkAuto.TabIndex = 21
+        ChkAuto.TabIndex = 15
         ChkAuto.Text = "automatisch"
         ChkAuto.UseVisualStyleBackColor = True
         ' 
@@ -124,7 +135,7 @@ Partial Class FrmWeb
         NudDuration.Location = New Point(1007, 43)
         NudDuration.Name = "NudDuration"
         NudDuration.Size = New Size(54, 23)
-        NudDuration.TabIndex = 23
+        NudDuration.TabIndex = 17
         NudDuration.TextAlign = HorizontalAlignment.Right
         ' 
         ' CmdInfo
@@ -132,7 +143,7 @@ Partial Class FrmWeb
         CmdInfo.Location = New Point(1461, 46)
         CmdInfo.Name = "CmdInfo"
         CmdInfo.Size = New Size(66, 27)
-        CmdInfo.TabIndex = 26
+        CmdInfo.TabIndex = 20
         CmdInfo.Text = "Info"
         CmdInfo.UseVisualStyleBackColor = True
         ' 
@@ -141,7 +152,7 @@ Partial Class FrmWeb
         CmdClose.Location = New Point(1461, 10)
         CmdClose.Name = "CmdClose"
         CmdClose.Size = New Size(66, 27)
-        CmdClose.TabIndex = 27
+        CmdClose.TabIndex = 19
         CmdClose.Text = "Schließen"
         CmdClose.UseVisualStyleBackColor = True
         ' 
@@ -150,7 +161,7 @@ Partial Class FrmWeb
         CmdPicPath.Location = New Point(462, 42)
         CmdPicPath.Name = "CmdPicPath"
         CmdPicPath.Size = New Size(30, 23)
-        CmdPicPath.TabIndex = 17
+        CmdPicPath.TabIndex = 10
         CmdPicPath.Text = "..."
         CmdPicPath.UseVisualStyleBackColor = True
         ' 
@@ -160,7 +171,7 @@ Partial Class FrmWeb
         LblPicName.Location = New Point(498, 46)
         LblPicName.Name = "LblPicName"
         LblPicName.Size = New Size(44, 15)
-        LblPicName.TabIndex = 18
+        LblPicName.TabIndex = 11
         LblPicName.Text = "-Name"
         ' 
         ' LblPicPath
@@ -169,7 +180,7 @@ Partial Class FrmWeb
         LblPicPath.Location = New Point(251, 46)
         LblPicPath.Name = "LblPicPath"
         LblPicPath.Size = New Size(56, 15)
-        LblPicPath.TabIndex = 15
+        LblPicPath.TabIndex = 8
         LblPicPath.Text = "Bild-Pfad"
         ' 
         ' LblUrl
@@ -187,7 +198,7 @@ Partial Class FrmWeb
         LblFile.Location = New Point(1067, 46)
         LblFile.Name = "LblFile"
         LblFile.Size = New Size(41, 15)
-        LblFile.TabIndex = 24
+        LblFile.TabIndex = 18
         LblFile.Text = "Label1"
         ' 
         ' TxtBildName
@@ -195,14 +206,23 @@ Partial Class FrmWeb
         TxtBildName.Location = New Point(548, 42)
         TxtBildName.Name = "TxtBildName"
         TxtBildName.Size = New Size(150, 23)
-        TxtBildName.TabIndex = 19
+        TxtBildName.TabIndex = 12
         ' 
         ' TxtBildPfad
         ' 
         TxtBildPfad.Location = New Point(313, 42)
         TxtBildPfad.Name = "TxtBildPfad"
         TxtBildPfad.Size = New Size(150, 23)
-        TxtBildPfad.TabIndex = 16
+        TxtBildPfad.TabIndex = 9
+        ' 
+        ' LblTime
+        ' 
+        LblTime.AutoSize = True
+        LblTime.Location = New Point(251, 93)
+        LblTime.Name = "LblTime"
+        LblTime.Size = New Size(41, 15)
+        LblTime.TabIndex = 23
+        LblTime.Text = "Label1"
         ' 
         ' LblInfo
         ' 
@@ -210,7 +230,7 @@ Partial Class FrmWeb
         LblInfo.Location = New Point(251, 74)
         LblInfo.Name = "LblInfo"
         LblInfo.Size = New Size(41, 15)
-        LblInfo.TabIndex = 25
+        LblInfo.TabIndex = 22
         LblInfo.Text = "Label1"
         ' 
         ' CmdCrop
@@ -227,7 +247,7 @@ Partial Class FrmWeb
         CmdAddPic.Location = New Point(1302, 9)
         CmdAddPic.Name = "CmdAddPic"
         CmdAddPic.Size = New Size(111, 26)
-        CmdAddPic.TabIndex = 5
+        CmdAddPic.TabIndex = 6
         CmdAddPic.Text = "Add URL"
         CmdAddPic.UseVisualStyleBackColor = True
         ' 
@@ -236,7 +256,7 @@ Partial Class FrmWeb
         CmdPicDatei.Location = New Point(1065, 10)
         CmdPicDatei.Name = "CmdPicDatei"
         CmdPicDatei.Size = New Size(155, 26)
-        CmdPicDatei.TabIndex = 6
+        CmdPicDatei.TabIndex = 4
         CmdPicDatei.Text = "Konfigurationsdatei"
         CmdPicDatei.UseVisualStyleBackColor = True
         ' 
@@ -245,7 +265,7 @@ Partial Class FrmWeb
         CmdPicture.Location = New Point(1384, 73)
         CmdPicture.Name = "CmdPicture"
         CmdPicture.Size = New Size(111, 26)
-        CmdPicture.TabIndex = 28
+        CmdPicture.TabIndex = 21
         CmdPicture.Text = "Button1"
         CmdPicture.UseVisualStyleBackColor = True
         CmdPicture.Visible = False
@@ -255,7 +275,7 @@ Partial Class FrmWeb
         CmdGetUrl.Location = New Point(1236, 9)
         CmdGetUrl.Name = "CmdGetUrl"
         CmdGetUrl.Size = New Size(60, 26)
-        CmdGetUrl.TabIndex = 4
+        CmdGetUrl.TabIndex = 5
         CmdGetUrl.Text = "Get URL"
         CmdGetUrl.UseVisualStyleBackColor = True
         ' 
@@ -264,7 +284,7 @@ Partial Class FrmWeb
         CmdAuto.Location = New Point(709, 40)
         CmdAuto.Name = "CmdAuto"
         CmdAuto.Size = New Size(129, 26)
-        CmdAuto.TabIndex = 20
+        CmdAuto.TabIndex = 13
         CmdAuto.Text = "Nächstes Bild"
         CmdAuto.UseVisualStyleBackColor = True
         ' 
@@ -297,7 +317,7 @@ Partial Class FrmWeb
         GpScreeshot.Location = New Point(12, 42)
         GpScreeshot.Name = "GpScreeshot"
         GpScreeshot.Size = New Size(233, 76)
-        GpScreeshot.TabIndex = 29
+        GpScreeshot.TabIndex = 7
         GpScreeshot.TabStop = False
         GpScreeshot.Text = "Definition des Screenshotbereiches"
         ' 
@@ -307,7 +327,7 @@ Partial Class FrmWeb
         LblH.Location = New Point(116, 50)
         LblH.Name = "LblH"
         LblH.Size = New Size(36, 15)
-        LblH.TabIndex = 21
+        LblH.TabIndex = 6
         LblH.Text = "Höhe"
         ' 
         ' LblW
@@ -316,7 +336,7 @@ Partial Class FrmWeb
         LblW.Location = New Point(9, 50)
         LblW.Name = "LblW"
         LblW.Size = New Size(37, 15)
-        LblW.TabIndex = 19
+        LblW.TabIndex = 4
         LblW.Text = "Breite"
         ' 
         ' LblY
@@ -325,7 +345,7 @@ Partial Class FrmWeb
         LblY.Location = New Point(114, 20)
         LblY.Name = "LblY"
         LblY.Size = New Size(63, 15)
-        LblY.TabIndex = 17
+        LblY.TabIndex = 2
         LblY.Text = "Start Pos Y"
         ' 
         ' LblX
@@ -334,7 +354,7 @@ Partial Class FrmWeb
         LblX.Location = New Point(9, 20)
         LblX.Name = "LblX"
         LblX.Size = New Size(63, 15)
-        LblX.TabIndex = 15
+        LblX.TabIndex = 0
         LblX.Text = "Start Pos X"
         ' 
         ' TxtH
@@ -342,7 +362,7 @@ Partial Class FrmWeb
         TxtH.Location = New Point(174, 47)
         TxtH.Name = "TxtH"
         TxtH.Size = New Size(35, 23)
-        TxtH.TabIndex = 22
+        TxtH.TabIndex = 7
         TxtH.TextAlign = HorizontalAlignment.Right
         ' 
         ' TxtW
@@ -350,7 +370,7 @@ Partial Class FrmWeb
         TxtW.Location = New Point(75, 48)
         TxtW.Name = "TxtW"
         TxtW.Size = New Size(35, 23)
-        TxtW.TabIndex = 20
+        TxtW.TabIndex = 5
         TxtW.TextAlign = HorizontalAlignment.Right
         ' 
         ' TxtY
@@ -358,7 +378,7 @@ Partial Class FrmWeb
         TxtY.Location = New Point(174, 17)
         TxtY.Name = "TxtY"
         TxtY.Size = New Size(35, 23)
-        TxtY.TabIndex = 18
+        TxtY.TabIndex = 3
         TxtY.TextAlign = HorizontalAlignment.Right
         ' 
         ' TxtX
@@ -366,17 +386,8 @@ Partial Class FrmWeb
         TxtX.Location = New Point(75, 17)
         TxtX.Name = "TxtX"
         TxtX.Size = New Size(35, 23)
-        TxtX.TabIndex = 16
+        TxtX.TabIndex = 1
         TxtX.TextAlign = HorizontalAlignment.Right
-        ' 
-        ' LblTime
-        ' 
-        LblTime.AutoSize = True
-        LblTime.Location = New Point(251, 93)
-        LblTime.Name = "LblTime"
-        LblTime.Size = New Size(41, 15)
-        LblTime.TabIndex = 25
-        LblTime.Text = "Label1"
         ' 
         ' FrmWeb
         ' 
@@ -429,4 +440,5 @@ Partial Class FrmWeb
     Friend WithEvents TxtX As TextBox
     Friend WithEvents TtpTool As ToolTip
     Friend WithEvents LblTime As Label
+    Friend WithEvents CmdResetManual As Button
 End Class
