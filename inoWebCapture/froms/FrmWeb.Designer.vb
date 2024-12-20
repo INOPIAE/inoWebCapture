@@ -55,6 +55,7 @@ Partial Class FrmWeb
         TxtY = New TextBox()
         TxtX = New TextBox()
         TtpTool = New ToolTip(components)
+        LblTime = New Label()
         CType(SpBrowser, ComponentModel.ISupportInitialize).BeginInit()
         SpBrowser.Panel1.SuspendLayout()
         SpBrowser.SuspendLayout()
@@ -84,6 +85,7 @@ Partial Class FrmWeb
         SpBrowser.Panel1.Controls.Add(LblFile)
         SpBrowser.Panel1.Controls.Add(TxtBildName)
         SpBrowser.Panel1.Controls.Add(TxtBildPfad)
+        SpBrowser.Panel1.Controls.Add(LblTime)
         SpBrowser.Panel1.Controls.Add(LblInfo)
         SpBrowser.Panel1.Controls.Add(CmdCrop)
         SpBrowser.Panel1.Controls.Add(CmdAddPic)
@@ -367,6 +369,15 @@ Partial Class FrmWeb
         TxtX.TabIndex = 16
         TxtX.TextAlign = HorizontalAlignment.Right
         ' 
+        ' LblTime
+        ' 
+        LblTime.AutoSize = True
+        LblTime.Location = New Point(251, 93)
+        LblTime.Name = "LblTime"
+        LblTime.Size = New Size(41, 15)
+        LblTime.TabIndex = 25
+        LblTime.Text = "Label1"
+        ' 
         ' FrmWeb
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -417,4 +428,5 @@ Partial Class FrmWeb
     Friend WithEvents TxtY As TextBox
     Friend WithEvents TxtX As TextBox
     Friend WithEvents TtpTool As ToolTip
+    Friend WithEvents LblTime As Label
 End Class

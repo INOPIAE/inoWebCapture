@@ -130,7 +130,7 @@ Public Class FrmWeb
 
         LblInfo.Text = ""
         LblFile.Text = String.Format("Konfigurationsdatei: {0}", pFile)
-
+        LblTime.Text = ""
 
         WView = New Microsoft.Web.WebView2.WinForms.WebView2()
         WView.Dock = DockStyle.Fill
@@ -207,12 +207,14 @@ Public Class FrmWeb
 
         LblInfo.Text = "Erste Seite wird geladen"
         If ChkAuto.Checked = False Then
+
             If pStart = True Then
                 pUrl = 0
                 TxtUrl.Text = url(pUrl)
                 BrowseToUrl()
                 CmdAuto.Text = "Nächstes Bild"
                 pStart = False
+                LblTime.Text = ""
             Else
                 pPic = pPicName & pUrl + 1 & ".png"
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
@@ -231,9 +233,19 @@ Public Class FrmWeb
             End If
         Else
             pUrl = 0
-            Application.DoEvents()
-            For z As Integer = 0 To url.Length - 1
 
+            ButtonControl(False)
+            Dim dtStart As DateTime = Now
+            Dim dtRemain As DateTime = Now
+            Dim duration As TimeSpan
+            Dim RestDuration As TimeSpan
+
+            dtRemain = dtRemain.AddSeconds(pPicTotal * NudDuration.Value)
+            RestDuration = dtRemain - Now
+            LblTime.Text = String.Format("Dauer: {0}:{1} Rest: {2}:{3}", duration.Minutes, Format(duration.Seconds, "00"), RestDuration.Minutes, Format(RestDuration.Seconds, "00"))
+            Application.DoEvents()
+
+            For z As Integer = 0 To url.Length - 1
 
                 TxtUrl.Text = url(z)
                 BrowseToUrl()
@@ -241,10 +253,14 @@ Public Class FrmWeb
                 pPic = pPicName & pUrl + 1 & ".png"
                 System.Threading.Thread.Sleep(NudDuration.Value * 1000)
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
+                duration = Now - dtStart
+                RestDuration = dtRemain - Now
+                LblTime.Text = String.Format("Dauer: {0}:{1} Rest: {2}:{3}", duration.Minutes, Format(duration.Seconds, "00"), RestDuration.Minutes, Format(RestDuration.Seconds, "00"))
                 Application.DoEvents()
                 ScreenCopy()
                 pUrl += 1
             Next
+            ButtonControl(True)
             LblInfo.Text = "fertig"
         End If
 
@@ -299,4 +315,21 @@ Public Class FrmWeb
         End If
     End Sub
 
+    Private Sub ButtonControl(Optional Activate As Boolean = True)
+        CmdAuto.Enabled = Activate
+        CmdAddPic.Enabled = Activate
+        CmdBrowse.Enabled = Activate
+        CmdCrop.Enabled = Activate
+        CmdGetUrl.Enabled = Activate
+        CmdPicDatei.Enabled = Activate
+        CmdPicPath.Enabled = Activate
+        CmdPicture.Enabled = Activate
+
+        ChkAuto.Enabled = Activate
+
+        TxtH.Enabled = Activate
+        TxtW.Enabled = Activate
+        TxtX.Enabled = Activate
+        TxtY.Enabled = Activate
+    End Sub
 End Class
