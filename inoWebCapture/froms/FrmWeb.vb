@@ -171,6 +171,8 @@ Public Class FrmWeb
         TtpTool.InitialDelay = 1000 ' Delay before showing the tooltip (1 second)
         TtpTool.ReshowDelay = 500 ' Delay before showing the tooltip again (after it's hidden)
 
+        CmdAuto.Text = "Screenshots mit Datei"
+
     End Sub
 
     Private Sub FrmWeb_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -209,7 +211,7 @@ Public Class FrmWeb
                 pUrl = 0
                 TxtUrl.Text = url(pUrl)
                 BrowseToUrl()
-
+                CmdAuto.Text = "Nächstes Bild"
                 pStart = False
             Else
                 pPic = pPicName & pUrl + 1 & ".png"
@@ -221,6 +223,7 @@ Public Class FrmWeb
                 If pUrl = url.Length Then
                     pStart = True
                     MessageBox.Show("Am Ende der Liste angekommen")
+                    CmdAuto.Text = "Screenshots mit Datei"
                 Else
                     TxtUrl.Text = url(pUrl)
                     BrowseToUrl()
@@ -244,6 +247,8 @@ Public Class FrmWeb
             Next
             LblInfo.Text = "fertig"
         End If
+
+
     End Sub
 
     Private Sub CmdPicDatei_Click(sender As Object, e As EventArgs) Handles CmdPicDatei.Click

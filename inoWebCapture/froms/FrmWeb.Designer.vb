@@ -101,7 +101,7 @@ Partial Class FrmWeb
         ' LblDuration
         ' 
         LblDuration.AutoSize = True
-        LblDuration.Location = New Point(928, 46)
+        LblDuration.Location = New Point(942, 45)
         LblDuration.Name = "LblDuration"
         LblDuration.Size = New Size(59, 15)
         LblDuration.TabIndex = 22
@@ -110,7 +110,7 @@ Partial Class FrmWeb
         ' ChkAuto
         ' 
         ChkAuto.AutoSize = True
-        ChkAuto.Location = New Point(830, 46)
+        ChkAuto.Location = New Point(844, 45)
         ChkAuto.Name = "ChkAuto"
         ChkAuto.Size = New Size(92, 19)
         ChkAuto.TabIndex = 21
@@ -119,7 +119,7 @@ Partial Class FrmWeb
         ' 
         ' NudDuration
         ' 
-        NudDuration.Location = New Point(996, 42)
+        NudDuration.Location = New Point(1007, 43)
         NudDuration.Name = "NudDuration"
         NudDuration.Size = New Size(54, 23)
         NudDuration.TabIndex = 23
@@ -182,7 +182,7 @@ Partial Class FrmWeb
         ' LblFile
         ' 
         LblFile.AutoSize = True
-        LblFile.Location = New Point(1065, 45)
+        LblFile.Location = New Point(1067, 46)
         LblFile.Name = "LblFile"
         LblFile.Size = New Size(41, 15)
         LblFile.TabIndex = 24
@@ -261,7 +261,7 @@ Partial Class FrmWeb
         ' 
         CmdAuto.Location = New Point(709, 40)
         CmdAuto.Name = "CmdAuto"
-        CmdAuto.Size = New Size(115, 26)
+        CmdAuto.Size = New Size(129, 26)
         CmdAuto.TabIndex = 20
         CmdAuto.Text = "Nächstes Bild"
         CmdAuto.UseVisualStyleBackColor = True
@@ -302,7 +302,7 @@ Partial Class FrmWeb
         ' LblH
         ' 
         LblH.AutoSize = True
-        LblH.Location = New Point(132, 51)
+        LblH.Location = New Point(116, 50)
         LblH.Name = "LblH"
         LblH.Size = New Size(36, 15)
         LblH.TabIndex = 21
@@ -311,7 +311,7 @@ Partial Class FrmWeb
         ' LblW
         ' 
         LblW.AutoSize = True
-        LblW.Location = New Point(48, 50)
+        LblW.Location = New Point(9, 50)
         LblW.Name = "LblW"
         LblW.Size = New Size(37, 15)
         LblW.TabIndex = 19
@@ -345,7 +345,7 @@ Partial Class FrmWeb
         ' 
         ' TxtW
         ' 
-        TxtW.Location = New Point(91, 47)
+        TxtW.Location = New Point(75, 48)
         TxtW.Name = "TxtW"
         TxtW.Size = New Size(35, 23)
         TxtW.TabIndex = 20
