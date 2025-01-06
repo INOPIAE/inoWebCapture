@@ -30,7 +30,6 @@ jobs:
       - name: Build ClickOnce App
         run: |
           MSBuild.exe inoWebCapture.sln /p:Configuration=Release /target:publish /p:PublishDir=${{ github.workspace }}\bin\Release\publish
-        working-directory: ./inoWebCapture
 
       - name: Locate signtool.exe
         run: |
