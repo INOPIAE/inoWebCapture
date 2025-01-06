@@ -361,13 +361,31 @@ Public Class FrmWeb
     End Sub
 
     Private Sub SavePDF()
+
         Dim sfd As New SaveFileDialog
 
         With sfd
+            .Title = "Speichern der fertigen PDF-Datei"
             .Filter = "PDF (*.pdf)|*.pdf"
             If .ShowDialog = DialogResult.OK Then
-                If Path.GetExtension(.FileName) = "*.pdf" Then
-                    cPH.SavePDF(.FileName)
+                Dim filename As String = .FileName
+                If Path.GetExtension(filename) = ".pdf" Then
+                    cPH.SavePDF(filename)
+                    cPH.CreateNewPDF()
+                    If MessageBox.Show("Soll die PDF-Datei geöffnet werden?", "PDF-Datei", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+
+                        Dim startInfo As New ProcessStartInfo With {
+                            .FileName = filename,
+                            .UseShellExecute = True ' Open with the default associated application 
+                        }
+                        Process.Start(startInfo)
+                    End If
+                    If MessageBox.Show("Sollen die erstellten PNG-Dateien gelöscht werden?", "Aufräumen", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+                        Dim dir As New DirectoryInfo(TxtBildPfad.Text)
+                        For Each file In dir.EnumerateFiles(String.Format("{0}.png", TxtBildName.Text))
+                            file.Delete()
+                        Next
+                    End If
                 End If
             End If
         End With
