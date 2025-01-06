@@ -8,7 +8,12 @@
     <MyType>WindowsForms</MyType>
     <ImportedNamespaces>System.Deployment.Application=False,System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,inoWebCapture=True</ImportedNamespaces>
     <Version>1.0.0.11</Version>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include=" System.Deployment.Application " />

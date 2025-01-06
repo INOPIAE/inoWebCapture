@@ -72,14 +72,13 @@ Partial Class FrmInfo
         ' 
         ' LogoPictureBox
         ' 
-        LogoPictureBox.Dock = DockStyle.Fill
         LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), Image)
         LogoPictureBox.Location = New Point(4, 3)
         LogoPictureBox.Margin = New Padding(4, 3, 4, 3)
         LogoPictureBox.Name = "LogoPictureBox"
         TableLayoutPanel.SetRowSpan(LogoPictureBox, 6)
         LogoPictureBox.Size = New Size(144, 292)
-        LogoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage
+        LogoPictureBox.SizeMode = PictureBoxSizeMode.CenterImage
         LogoPictureBox.TabIndex = 0
         LogoPictureBox.TabStop = False
         ' 

@@ -23,6 +23,7 @@ Partial Class FrmWeb
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmWeb))
         SpBrowser = New SplitContainer()
         CmdResetManual = New Button()
         LblDuration = New Label()
@@ -407,6 +408,7 @@ Partial Class FrmWeb
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1553, 508)
         Controls.Add(SpBrowser)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "FrmWeb"
         Text = "inoWebCapture"
         SpBrowser.Panel1.ResumeLayout(False)
