@@ -1,0 +1,87 @@
+name: Release ClickOnce App
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger workflow for tags starting with 'v'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      # adjust path
+      - name: Restore NuGet Packages
+        run: dotnet restore
+        working-directory: ./inoWebCapture
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      # adjust path and name of .sln
+      - name: Build ClickOnce App
+        run: |
+          MSBuild.exe inoWebCapture.sln /p:Configuration=Release /target:publish /p:PublishDir=${{ github.workspace }}\bin\Release\publish
+        working-directory: ./inoWebCapture
+
+      - name: Locate signtool.exe
+        run: |
+          dir "C:\Program Files (x86)\Windows Kits\10\bin\*" /s /b | findstr signtool.exe || echo "signtool.exe not found"
+        shell: cmd
+
+      - name: Install Windows SDK (if required)
+        run: |
+          Invoke-WebRequest -Uri https://go.microsoft.com/fwlink/?linkid=2120843 -OutFile winsdksetup.exe
+          Start-Process .\winsdksetup.exe -ArgumentList "/quiet", "/norestart" -Wait
+        shell: powershell
+
+      - name: Import Code-Signing Certificate
+        shell: powershell
+        run: |
+          $certContent = [System.Convert]::FromBase64String("${{ secrets.CODE_SIGN_CERT }}")
+          [System.IO.File]::WriteAllBytes("cert.pfx", $certContent)
+
+      # adjust name of exe
+      # may adjust path to signtool.exe
+      - name: Sign Executable
+        run: |
+          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x86\signtool.exe"
+          if (-Not (Test-Path $signtoolPath)) {
+            Write-Error "signtool.exe not found at $signtoolPath"
+            exit 1
+          }
+          &$signtoolPath sign `
+            /f cert.pfx `
+            /p ${{ secrets.CODE_SIGN_PASSWORD }} `
+            /tr http://timestamp.digicert.com `
+            /td sha256 `
+            /fd sha256 `
+            /a ${{ github.workspace }}\bin\Release\publish\inoWebCapture.exe
+        shell: powershell
+
+      # adjust name of project
+      - name: Zip ClickOnce Files
+        run: |
+          Compress-Archive -Path ${{ github.workspace }}\bin\Release\publish\* -DestinationPath inoWebCapture-release-${{ github.ref_name }}.zip
+        shell: powershell
+
+      # adjust name of project
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: inoWebCapture Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body: |
+            This release contains the inoWebCapture.exe deployment files for version ${{ github.ref_name }}.
+          files: inoWebCapture-release-${{ github.ref_name }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
