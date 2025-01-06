@@ -382,7 +382,7 @@ Public Class FrmWeb
                     End If
                     If MessageBox.Show("Sollen die erstellten PNG-Dateien gelöscht werden?", "Aufräumen", MessageBoxButtons.YesNo) = DialogResult.Yes Then
                         Dim dir As New DirectoryInfo(TxtBildPfad.Text)
-                        For Each file In dir.EnumerateFiles(String.Format("{0}.png", TxtBildName.Text))
+                        For Each file In dir.EnumerateFiles(String.Format("{0}*.png", TxtBildName.Text))
                             file.Delete()
                         Next
                     End If
