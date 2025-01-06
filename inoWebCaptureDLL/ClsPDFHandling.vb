@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports PdfSharp.Drawing
 Imports PdfSharp.Pdf
 Public Class ClsPDFHandling
     Public pdfFile As PdfDocument
@@ -16,12 +17,13 @@ Public Class ClsPDFHandling
         'Create XImage object from file.
         Using xImg = PdfSharp.Drawing.XImage.FromFile(filepath)
             'Resize page Width and Height to fit picture size.
-            page.Width = xImg.PixelWidth * 72 / xImg.HorizontalResolution
-            page.Height = xImg.PixelHeight * 72 / xImg.HorizontalResolution
+            page.Width = XUnit.FromPoint(xImg.PixelWidth * 72 / xImg.HorizontalResolution)
+            page.Height = XUnit.FromPoint(xImg.PixelHeight * 72 / xImg.HorizontalResolution)
 
             'Draw current image file to page.
-            Dim GR = PdfSharp.Drawing.XGraphics.FromPdfPage(page)
-            GR.DrawImage(xImg, 0, 0, page.Width, page.Height)
+            Using GR As XGraphics = XGraphics.FromPdfPage(page)
+                GR.DrawImage(xImg, 0, 0, page.Width.Point, page.Height.Point)
+            End Using
         End Using
 
         Return True
