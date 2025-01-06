@@ -26,6 +26,7 @@ Partial Class FrmWeb
         SpBrowser = New SplitContainer()
         CmdResetManual = New Button()
         LblDuration = New Label()
+        ChkPDF = New CheckBox()
         ChkAuto = New CheckBox()
         NudDuration = New NumericUpDown()
         CmdInfo = New Button()
@@ -76,6 +77,7 @@ Partial Class FrmWeb
         ' 
         SpBrowser.Panel1.Controls.Add(CmdResetManual)
         SpBrowser.Panel1.Controls.Add(LblDuration)
+        SpBrowser.Panel1.Controls.Add(ChkPDF)
         SpBrowser.Panel1.Controls.Add(ChkAuto)
         SpBrowser.Panel1.Controls.Add(NudDuration)
         SpBrowser.Panel1.Controls.Add(CmdInfo)
@@ -117,8 +119,18 @@ Partial Class FrmWeb
         LblDuration.Location = New Point(942, 45)
         LblDuration.Name = "LblDuration"
         LblDuration.Size = New Size(59, 15)
-        LblDuration.TabIndex = 16
+        LblDuration.TabIndex = 17
         LblDuration.Text = "Sekunden"
+        ' 
+        ' ChkPDF
+        ' 
+        ChkPDF.AutoSize = True
+        ChkPDF.Location = New Point(844, 66)
+        ChkPDF.Name = "ChkPDF"
+        ChkPDF.Size = New Size(94, 19)
+        ChkPDF.TabIndex = 16
+        ChkPDF.Text = "PDF erstellen"
+        ChkPDF.UseVisualStyleBackColor = True
         ' 
         ' ChkAuto
         ' 
@@ -135,7 +147,7 @@ Partial Class FrmWeb
         NudDuration.Location = New Point(1007, 43)
         NudDuration.Name = "NudDuration"
         NudDuration.Size = New Size(54, 23)
-        NudDuration.TabIndex = 17
+        NudDuration.TabIndex = 18
         NudDuration.TextAlign = HorizontalAlignment.Right
         ' 
         ' CmdInfo
@@ -143,7 +155,7 @@ Partial Class FrmWeb
         CmdInfo.Location = New Point(1461, 46)
         CmdInfo.Name = "CmdInfo"
         CmdInfo.Size = New Size(66, 27)
-        CmdInfo.TabIndex = 20
+        CmdInfo.TabIndex = 21
         CmdInfo.Text = "Info"
         CmdInfo.UseVisualStyleBackColor = True
         ' 
@@ -152,7 +164,7 @@ Partial Class FrmWeb
         CmdClose.Location = New Point(1461, 10)
         CmdClose.Name = "CmdClose"
         CmdClose.Size = New Size(66, 27)
-        CmdClose.TabIndex = 19
+        CmdClose.TabIndex = 20
         CmdClose.Text = "Schließen"
         CmdClose.UseVisualStyleBackColor = True
         ' 
@@ -198,7 +210,7 @@ Partial Class FrmWeb
         LblFile.Location = New Point(1067, 46)
         LblFile.Name = "LblFile"
         LblFile.Size = New Size(41, 15)
-        LblFile.TabIndex = 18
+        LblFile.TabIndex = 19
         LblFile.Text = "Label1"
         ' 
         ' TxtBildName
@@ -221,7 +233,7 @@ Partial Class FrmWeb
         LblTime.Location = New Point(251, 93)
         LblTime.Name = "LblTime"
         LblTime.Size = New Size(41, 15)
-        LblTime.TabIndex = 23
+        LblTime.TabIndex = 24
         LblTime.Text = "Label1"
         ' 
         ' LblInfo
@@ -230,7 +242,7 @@ Partial Class FrmWeb
         LblInfo.Location = New Point(251, 74)
         LblInfo.Name = "LblInfo"
         LblInfo.Size = New Size(41, 15)
-        LblInfo.TabIndex = 22
+        LblInfo.TabIndex = 23
         LblInfo.Text = "Label1"
         ' 
         ' CmdCrop
@@ -265,7 +277,7 @@ Partial Class FrmWeb
         CmdPicture.Location = New Point(1384, 73)
         CmdPicture.Name = "CmdPicture"
         CmdPicture.Size = New Size(111, 26)
-        CmdPicture.TabIndex = 21
+        CmdPicture.TabIndex = 22
         CmdPicture.Text = "Button1"
         CmdPicture.UseVisualStyleBackColor = True
         CmdPicture.Visible = False
@@ -441,4 +453,5 @@ Partial Class FrmWeb
     Friend WithEvents TtpTool As ToolTip
     Friend WithEvents LblTime As Label
     Friend WithEvents CmdResetManual As Button
+    Friend WithEvents ChkPDF As CheckBox
 End Class

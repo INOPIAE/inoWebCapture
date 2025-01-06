@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
+Imports inoWebCaptureDLL
 
 Imports System.Reflection.Emit
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
@@ -15,6 +16,7 @@ Public Class FrmWeb
     Public pFile As String
     Private blnAddUrl As Boolean
     Private pPicTotal As Integer
+    Private cPH As New ClsPDFHandling
 
 
 
@@ -122,6 +124,7 @@ Public Class FrmWeb
             TxtBildPfad.Text = My.Settings.LastPicPath
             ChkAuto.Checked = My.Settings.PicAuto
             NudDuration.Value = My.Settings.PicDuration
+            ChkPDF.Checked = My.Settings.PicPDF
             pFile = My.Settings.LastPicFile
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
@@ -184,6 +187,7 @@ Public Class FrmWeb
         My.Settings.LastPicFile = pFile
         My.Settings.PicAuto = ChkAuto.Checked
         My.Settings.PicDuration = NudDuration.Value
+        My.Settings.PicPDF = ChkPDF.Checked
 
 
         My.Settings.LastUrl = TxtUrl.Text
@@ -220,12 +224,18 @@ Public Class FrmWeb
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
 
                 ScreenCopy()
-
+                If ChkPDF.Checked = True Then
+                    cPH.AddPicturePage(pPic)
+                End If
                 pUrl += 1
                 If pUrl = url.Length Then
 
-                    MessageBox.Show("Am Ende der Liste angekommen")
                     ResetManuell()
+                    If ChkPDF.Checked = True Then
+                        SavePDF()
+                    Else
+                        MessageBox.Show("Am Ende der Liste angekommen")
+                    End If
                 Else
                     TxtUrl.Text = url(pUrl)
                     BrowseToUrl()
@@ -258,10 +268,17 @@ Public Class FrmWeb
                 LblTime.Text = String.Format("Dauer: {0}:{1} Rest: {2}:{3}", duration.Minutes, Format(duration.Seconds, "00"), RestDuration.Minutes, Format(RestDuration.Seconds, "00"))
                 Application.DoEvents()
                 ScreenCopy()
+                If ChkPDF.Checked = True Then
+                    cPH.AddPicturePage(pPic)
+                End If
                 pUrl += 1
             Next
             ButtonControl(True)
+
             LblInfo.Text = "fertig"
+            If ChkPDF.Checked = True Then
+                SavePDF()
+            End If
         End If
 
 
@@ -341,5 +358,24 @@ Public Class FrmWeb
 
     Private Sub CmdResetManual_Click(sender As Object, e As EventArgs) Handles CmdResetManual.Click
         ResetManuell()
+    End Sub
+
+    Private Sub CmdPDF_Click(sender As Object, e As EventArgs)
+        FrmPDF.Show()
+    End Sub
+
+    Private Sub SavePDF()
+        Dim sfd As New SaveFileDialog
+
+        With sfd
+            .Filter = "PDF (*.pdf)|*.pdf"
+            If .ShowDialog = DialogResult.OK Then
+                If Path.GetExtension(.FileName) = "*.pdf" Then
+                    cPH.SavePDF(.FileName)
+                End If
+            End If
+        End With
+
+
     End Sub
 End Class

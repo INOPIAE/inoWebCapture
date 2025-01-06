@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\inoWebCaptureDLL\inoWebCaptureDLL.vbproj" />
   </ItemGroup>
 
   <ItemGroup>
