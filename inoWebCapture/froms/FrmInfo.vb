@@ -6,7 +6,7 @@ Public NotInheritable Class FrmInfo
     Private Sub FrmInfo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Legen Sie den Titel des Formulars fest.
         Dim ApplicationTitle As String
-        Dim AppVersion As String
+
         If My.Application.Info.Title <> "" Then
             ApplicationTitle = My.Application.Info.Title
         Else

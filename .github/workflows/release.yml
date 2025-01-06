@@ -21,7 +21,6 @@ jobs:
       # adjust path
       - name: Restore NuGet Packages
         run: dotnet restore
-        working-directory: ./inoWebCapture
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1

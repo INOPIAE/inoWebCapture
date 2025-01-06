@@ -360,10 +360,6 @@ Public Class FrmWeb
         ResetManuell()
     End Sub
 
-    Private Sub CmdPDF_Click(sender As Object, e As EventArgs)
-        FrmPDF.Show()
-    End Sub
-
     Private Sub SavePDF()
         Dim sfd As New SaveFileDialog
 
