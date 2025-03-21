@@ -5,6 +5,8 @@ Imports inoWebCaptureDLL
 Imports System.Reflection.Emit
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Microsoft.Web.WebView2.Core
+Imports System.Drawing
+Imports System.Drawing.Imaging
 
 Public Class FrmWeb
 
@@ -53,6 +55,7 @@ Public Class FrmWeb
         '        End If
         '    End Using
         'End Using
+        CaptureScreenshot()
     End Sub
 
 
@@ -64,7 +67,8 @@ Public Class FrmWeb
     Dim cropBitmap As Bitmap
     Private Sub CmdCrop_Click(sender As Object, e As EventArgs) Handles CmdCrop.Click
         pPic = ""
-        ScreenCopy()
+        ' ScreenCopy()
+        CaptureScreenshot()
     End Sub
 
     Private Sub ScreenCopy()
@@ -223,7 +227,8 @@ Public Class FrmWeb
                 pPic = pPicName & pUrl + 1 & ".png"
                 LblInfo.Text = String.Format("Bild {0} von {1}", pUrl + 1, pPicTotal)
 
-                ScreenCopy()
+                'ScreenCopy()
+                CaptureScreenshot()
                 If ChkPDF.Checked = True Then
                     cPH.AddPicturePage(pPic)
                 End If
@@ -267,7 +272,8 @@ Public Class FrmWeb
                 RestDuration = dtRemain - Now
                 LblTime.Text = String.Format("Dauer: {0}:{1} Rest: {2}:{3}", duration.Minutes, Format(duration.Seconds, "00"), RestDuration.Minutes, Format(RestDuration.Seconds, "00"))
                 Application.DoEvents()
-                ScreenCopy()
+                '  ScreenCopy()
+                CaptureScreenshot()
                 If ChkPDF.Checked = True Then
                     cPH.AddPicturePage(pPic)
                 End If
@@ -391,5 +397,80 @@ Public Class FrmWeb
         End With
 
 
+    End Sub
+
+
+    Private Async Sub CaptureScreenshot()
+        Try
+            ' Check if WebView2 is ready
+            If WView.CoreWebView2 IsNot Nothing Then
+                ' Create a memory stream to store the image
+                Using stream As New MemoryStream()
+                    ' Capture the preview
+                    Await WView.CoreWebView2.CapturePreviewAsync(
+                        CoreWebView2CapturePreviewImageFormat.Png,
+                        stream
+                    )
+
+                    ' Save the image to a file
+                    'Dim filePath As String = Path.Combine(
+                    '    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    '    "WebView2Screenshot.png"
+                    ')
+                    Using image As Image = Image.FromStream(stream)
+                        Dim cropRectangle As New Rectangle(TxtX.Text, TxtY.Text, TxtW.Text, TxtH.Text)
+
+                        ' Create a bitmap with the cropped area
+                        Using croppedImage As New Bitmap(cropRectangle.Width, cropRectangle.Height)
+                            Using graphic = Graphics.FromImage(croppedImage)
+                                ' Draw the cropped area onto the new bitmap
+                                graphic.DrawImage(image, New Rectangle(0, 0, cropRectangle.Width, cropRectangle.Height), cropRectangle, GraphicsUnit.Pixel)
+                            End Using
+
+                            ' Save the cropped image as a PNG
+                            ' croppedImage.Save(filePath, ImageFormat.Png)
+
+                            If pPic = "" Then
+                                Using sfd As New SaveFileDialog() With {.Filter = "PNG Image|*.png"}
+
+                                    If sfd.ShowDialog() = DialogResult.OK Then
+                                        croppedImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png)
+                                    End If
+                                End Using
+                            Else
+                                croppedImage.Save(pPic, System.Drawing.Imaging.ImageFormat.Png)
+                                Debug.Print(pPic)
+                            End If
+                        End Using
+
+                        '      image.Save(filePath)
+                    End Using
+
+                    'MessageBox.Show("Screenshot saved to: " & filePath)
+                End Using
+            Else
+                MessageBox.Show("WebView2 is not initialized.")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("An error occurred: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CmdClearCache_Click(sender As Object, e As EventArgs) Handles CmdClearCache.Click
+        ClearWebViewCache()
+    End Sub
+
+    Private Async Sub ClearWebViewCache()
+        If WView.CoreWebView2 IsNot Nothing Then
+            Try
+                ' Löscht Cache, Cookies und andere Browsing-Daten
+                Await WView.CoreWebView2.Profile.ClearBrowsingDataAsync(CoreWebView2BrowsingDataKinds.AllSite)
+                MessageBox.Show("Cache wurde geleert!")
+            Catch ex As Exception
+                MessageBox.Show("Fehler beim Löschen des Caches: " & ex.Message)
+            End Try
+        Else
+            MessageBox.Show("WebView2 ist noch nicht initialisiert.")
+        End If
     End Sub
 End Class

@@ -25,6 +25,7 @@ Partial Class FrmWeb
         components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmWeb))
         SpBrowser = New SplitContainer()
+        CmdClearCache = New Button()
         CmdResetManual = New Button()
         LblDuration = New Label()
         ChkPDF = New CheckBox()
@@ -76,6 +77,7 @@ Partial Class FrmWeb
         ' 
         ' SpBrowser.Panel1
         ' 
+        SpBrowser.Panel1.Controls.Add(CmdClearCache)
         SpBrowser.Panel1.Controls.Add(CmdResetManual)
         SpBrowser.Panel1.Controls.Add(LblDuration)
         SpBrowser.Panel1.Controls.Add(ChkPDF)
@@ -104,6 +106,15 @@ Partial Class FrmWeb
         SpBrowser.Size = New Size(1553, 508)
         SpBrowser.SplitterDistance = 126
         SpBrowser.TabIndex = 0
+        ' 
+        ' CmdClearCache
+        ' 
+        CmdClearCache.Location = New Point(1436, 73)
+        CmdClearCache.Name = "CmdClearCache"
+        CmdClearCache.Size = New Size(91, 23)
+        CmdClearCache.TabIndex = 25
+        CmdClearCache.Text = "Cache Leeren"
+        CmdClearCache.UseVisualStyleBackColor = True
         ' 
         ' CmdResetManual
         ' 
@@ -275,7 +286,7 @@ Partial Class FrmWeb
         ' 
         ' CmdPicture
         ' 
-        CmdPicture.Location = New Point(1384, 73)
+        CmdPicture.Location = New Point(1319, 61)
         CmdPicture.Name = "CmdPicture"
         CmdPicture.Size = New Size(111, 26)
         CmdPicture.TabIndex = 22
@@ -456,4 +467,5 @@ Partial Class FrmWeb
     Friend WithEvents LblTime As Label
     Friend WithEvents CmdResetManual As Button
     Friend WithEvents ChkPDF As CheckBox
+    Friend WithEvents CmdClearCache As Button
 End Class
